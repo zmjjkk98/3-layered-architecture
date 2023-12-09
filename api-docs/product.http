@@ -1,0 +1,33 @@
+@host = http://localhost:3000/api/products
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcwMjEyMzg5NiwiZXhwIjoxNzAyMTU5ODk2fQ.Q1RrbQkaRsDzoJ0wLXBW50oJ3ulbNQ4nL0gNaRJ47CE
+
+### 상품 생성
+POST {{host}}
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+   "title": "테스트용 타이틀33",
+   "description" : "테스트 내용33"
+}
+
+### 상품 조회
+GET {{host}}
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+### 단일 상품 조회
+GET {{host}}/1
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+PUT  {{host}}/1
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "title": "수정된 제목입니다", 
+  "description": "수정된 내용입니다", 
+  "status": "SOLD_OUT"
+
+}

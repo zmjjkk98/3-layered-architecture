@@ -1,20 +1,20 @@
 import { prisma } from "../utils/prisma/index.js";
 
 export class ProductsRepository {
-  createProduct = async (productId, title, description, status) => {
+  createProduct = async (title, description, userId) => {
     try {
-      const createProduct = await prisma.products.create({
+      const createdProduct = await prisma.products.create({
         data: {
-          productId,
           title,
           description,
-          status,
+          UserId: +userId,
         },
       });
+
+      return createdProduct;
     } catch (error) {
       console.log(error);
     }
-    return createProduct;
   };
 
   getAllProduct = async () => {
@@ -33,18 +33,17 @@ export class ProductsRepository {
           productId: +productId,
         },
       });
-      return productId;
+      return product;
     } catch (error) {
       console.log(error);
     }
   };
 
-  updateProduct = async (productId, password, title, description, status) => {
+  updateProduct = async (productId, title, description, status) => {
     try {
       const updatedProduct = await prisma.products.update({
         where: {
           productId: +productId,
-          password: password,
         },
         data: {
           title,
@@ -59,14 +58,14 @@ export class ProductsRepository {
     }
   };
 
-  deleteProduct = async (productId, password) => {
+  deleteProduct = async (productId) => {
     try {
-      const deletedProduct = await prisma.products.update({
+      const deletedProduct = await prisma.products.delete({
         where: {
           productId: +productId,
-          password,
         },
       });
+
       return deletedProduct;
     } catch (error) {
       console.log(error);

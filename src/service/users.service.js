@@ -33,7 +33,6 @@ export class UsersService {
 
   signIn = async (email, password) => {
     const user = await this.usersRepository.findUserByEmail(email);
-    console.log(user);
 
     const isPasswordCorrect = bcrypt.compareSync(password, user.password);
 

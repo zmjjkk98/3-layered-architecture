@@ -6,13 +6,13 @@ export class ProductsController {
   //생성
   createProduct = async (req, res, next) => {
     try {
-      const { title, description, status } = req.body;
+      const { title, description } = req.body;
+      const { userId } = req.users;
 
       const createdPost = await this.productsService.createProduct(
-        productId,
         title,
         description,
-        status
+        userId
       );
 
       return res.status(201).json({ data: createdPost });
@@ -56,10 +56,9 @@ export class ProductsController {
   putProduct = async (req, res) => {
     try {
       const { productId } = req.params;
-      const { password, title, description, status } = req.body;
+      const { title, description, status } = req.body;
       const updatedProduct = await this.productsService.updateProduct(
         productId,
-        password,
         title,
         description,
         status
@@ -73,11 +72,9 @@ export class ProductsController {
   deleteProduct = async (req, res) => {
     try {
       const { productId } = req.params;
-      const { password } = req.body;
 
       const deletedProduct = await this.productsService.deleteProduct(
-        productId,
-        password
+        productId
       );
 
       return res.status(200).json({ data: deletedProduct });

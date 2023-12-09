@@ -3,16 +3,15 @@ import { ProductsRepository } from "../repository/products.repositroy.js";
 export class ProductsService {
   productsRepository = new ProductsRepository();
 
-  createProduct = async (productId, title, description, status) => {
+  createProduct = async (title, description, userId) => {
     const createdPost = await this.productsRepository.createProduct(
-      productId,
       title,
       description,
-      status
+      userId
     );
 
     return {
-      postId: createdPost.postId,
+      productId: createdPost.productId,
       title: createdPost.title,
       description: createdPost.description,
       status: createdPost.status,
@@ -56,20 +55,19 @@ export class ProductsService {
     };
   };
 
-  updateProduct = async (productId, password, title, description, status) => {
+  updateProduct = async (productId, title, description, status) => {
     //유효성 검증용
     const product = await this.productsRepository.getProductById(productId);
 
-    await this.productsRepository.updateProduct(
+    if (!product) {
+      throw new Error("원하시는 상품이 존재하지 않습니다.");
+    }
+
+    const updatedProduct = await this.productsRepository.updateProduct(
       productId,
-      password,
       title,
       description,
       status
-    );
-
-    const updatedProduct = await this.productsRepository.getProductById(
-      productId
     );
 
     return {
@@ -83,9 +81,12 @@ export class ProductsService {
     };
   };
 
-  deleteProduct = async (productId, password) => {
+  deleteProduct = async (productId) => {
     const product = await this.productsRepository.getProductById(productId);
-    await this.productsRepository.deleteProduct(productId, password);
+    if (!product) {
+      throw new Error("원하시는 상품이 존재하지 않습니다.");
+    }
+    await this.productsRepository.deleteProduct(productId);
 
     return {
       productId: product.productId,
