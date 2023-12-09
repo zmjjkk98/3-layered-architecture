@@ -6,7 +6,12 @@ export class UsersController {
     try {
       const { email, password, passwordConfirm, name } = req.body;
 
-      const user = await this.usersService.signUp();
+      const user = await this.usersService.signUp(
+        email,
+        password,
+        passwordConfirm,
+        name
+      );
 
       return res.status(201).json({
         data: {
@@ -21,7 +26,7 @@ export class UsersController {
   signIn = async (req, res, next) => {
     const { email, password } = req.body;
 
-    const user = await this.usersService.findByEmail();
+    const user = await this.usersService.signIn(email, password);
 
     return res.status(201).json({
       user,
