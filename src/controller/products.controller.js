@@ -1,4 +1,4 @@
-import { ProductsService } from "";
+import { ProductsService } from "../service/products.service";
 
 export class ProductsController {
   productsService = new ProductsService();
@@ -10,7 +10,6 @@ export class ProductsController {
 
       const createdPost = await this.productsService.createProduct(
         productId,
-        UserId,
         title,
         description,
         status
@@ -37,7 +36,7 @@ export class ProductsController {
     try {
       const { productId } = req.params;
 
-      const product = await this.productsService.getProductById();
+      const product = await this.productsService.getProductById(productId);
 
       return res.status(200).json({
         data: {
@@ -57,30 +56,31 @@ export class ProductsController {
   putProduct = async (req, res) => {
     try {
       const { productId } = req.params;
-      const { password, title, description } = req.body;
+      const { password, title, description, status } = req.body;
       const updatedProduct = await this.productsService.updateProduct(
         productId,
         password,
         title,
-        description
+        description,
+        status
       );
 
       return res.status(200).json({ data: updatedProduct });
     } catch (error) {}
   };
+
+  //삭제
+  deleteProduct = async (req, res) => {
+    try {
+      const { productId } = req.params;
+      const { password } = req.body;
+
+      const deletedProduct = await this.productsService.deleteProduct(
+        productId,
+        password
+      );
+
+      return res.status(200).json({ data: deletedProduct });
+    } catch (error) {}
+  };
 }
-
-//삭제
-deleteProduct = async (req, res) => {
-  try {
-    const { productId } = req.params;
-    const { password } = req.body;
-
-    const deletedProduct = await this.productsService.deleteProduct(
-      productId,
-      password
-    );
-
-    return res.status(200).json({ data: deletedProduct });
-  } catch (error) {}
-};

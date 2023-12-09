@@ -1,6 +1,6 @@
-import { UsersService } from "";
+import { UsersService } from "../service/users.service";
 
-export class UserController {
+export class UsersController {
   usersService = new UsersService();
   signUp = async (req, res, next) => {
     try {
