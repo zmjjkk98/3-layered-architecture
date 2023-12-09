@@ -1,4 +1,4 @@
-import { UsersRepository } from "";
+import { UsersRepository } from "../repository/users.repository.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
