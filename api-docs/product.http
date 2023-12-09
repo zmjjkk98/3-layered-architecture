@@ -21,7 +21,9 @@ GET {{host}}/1
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
-PUT  {{host}}/1
+
+### 상품 수정
+PUT {{host}}/1
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
@@ -29,5 +31,10 @@ Authorization: Bearer {{accessToken}}
   "title": "수정된 제목입니다", 
   "description": "수정된 내용입니다", 
   "status": "SOLD_OUT"
-
 }
+
+### 상품 삭제
+
+DELETE {{host}}/3
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}

@@ -1,5 +1,8 @@
+@host = http://localhost:3000/api/users
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcwMjEyMzg5NiwiZXhwIjoxNzAyMTU5ODk2fQ.Q1RrbQkaRsDzoJ0wLXBW50oJ3ulbNQ4nL0gNaRJ47CE
+
 ###회원 가입
-POST http://localhost:3000/api/users/signup
+POST {{host}}/signup
 Content-Type: application/json
 
 {
@@ -10,7 +13,7 @@ Content-Type: application/json
 }
 
 ###로그인
-POST http://localhost:3000/api/users/signin
+POST {{host}}/signin
 Content-Type: application/json
 
 {
@@ -19,5 +22,5 @@ Content-Type: application/json
 }
 
 ###내정보 조회
-GET http://localhost:3000/api/users/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcwMjEyMzg5NiwiZXhwIjoxNzAyMTU5ODk2fQ.Q1RrbQkaRsDzoJ0wLXBW50oJ3ulbNQ4nL0gNaRJ47CE
+GET {{host}}/me
+Authorization: Bearer {{accessToken}}
