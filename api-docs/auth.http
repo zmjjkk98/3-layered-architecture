@@ -1,0 +1,23 @@
+###회원 가입
+POST http://localhost:3000/api/users/signup
+Content-Type: application/json
+
+{
+   "email": "aaa@naver.com",
+   "password": "1234",
+   "passwordConfirm": "1234",
+   "name":"구름"
+}
+
+###로그인
+POST http://localhost:3000/api/users/signin
+Content-Type: application/json
+
+{
+   "email": "aaa@naver.com",
+   "password": "1234"
+}
+
+###내정보 조회
+GET http://localhost:3000/api/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcwMjEyMzg5NiwiZXhwIjoxNzAyMTU5ODk2fQ.Q1RrbQkaRsDzoJ0wLXBW50oJ3ulbNQ4nL0gNaRJ47CE

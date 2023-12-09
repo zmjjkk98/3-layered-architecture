@@ -15,6 +15,7 @@ export class UsersController {
 
       return res.status(201).json({
         data: {
+          userId: user.userId,
           email: user.email,
           name: user.name,
           createdAt: user.createdAt,
@@ -29,12 +30,13 @@ export class UsersController {
     const user = await this.usersService.signIn(email, password);
 
     return res.status(201).json({
-      user,
+      data: user,
     });
   };
 
   getMyInfo = async (req, res, next) => {
-    const user = req.user;
+    const user = req.users;
+    console.log(user);
 
     return res.status(200).json({ user });
   };
