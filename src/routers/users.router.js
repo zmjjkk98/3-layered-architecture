@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { UsersController } from "../controller/users.controller.js";
+import { auth } from "../middleware/need-signin.middleware.js";
 
 const userRouter = Router();
 
@@ -9,6 +10,6 @@ const userscontroller = new UsersController();
 
 userRouter.post("/signup", userscontroller.signUp);
 userRouter.post("/signin", userscontroller.signIn);
-userRouter.get("/me", userscontroller.getMyInfo);
+userRouter.get("/me", auth, userscontroller.getMyInfo);
 
 export default userRouter;
