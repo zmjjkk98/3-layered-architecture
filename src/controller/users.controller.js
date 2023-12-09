@@ -1,4 +1,4 @@
-import { UsersService } from "../service/users.service.js";
+import { UsersService } from '../service/users.service.js';
 
 export class UsersController {
   usersService = new UsersService();
@@ -10,7 +10,7 @@ export class UsersController {
         email,
         password,
         passwordConfirm,
-        name
+        name,
       );
 
       return res.status(201).json({
@@ -22,7 +22,9 @@ export class UsersController {
           updatedAt: user.updatedAt,
         },
       });
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
   signIn = async (req, res, next) => {
     const { email, password } = req.body;

@@ -1,6 +1,6 @@
-import { UsersRepository } from "../repository/users.repository.js";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import { UsersRepository } from '../repository/users.repository.js';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 export class UsersService {
   usersRepository = new UsersRepository();
@@ -8,17 +8,17 @@ export class UsersService {
   signUp = async (email, password, passwordConfirm, name) => {
     try {
       if (password !== passwordConfirm) {
-        throw new Error("");
+        throw new Error('');
       }
 
-      const saltround = 10;
+      const saltround = process.env.PASSWORD_HASH_SALT_ROUNDS;
 
-      const bcryptPassword = bcrypt.hashSync(password, saltround);
+      const bcryptPassword = bcrypt.hashSync(password, +saltround);
 
       const user = await this.usersRepository.signUp(
         email,
         bcryptPassword,
-        name
+        name,
       );
 
       return {
@@ -28,7 +28,9 @@ export class UsersService {
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
       };
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   signIn = async (email, password) => {
@@ -36,9 +38,13 @@ export class UsersService {
 
     const isPasswordCorrect = bcrypt.compareSync(password, user.password);
 
-    const accessToken = jwt.sign({ userId: user.userId }, "secret", {
-      expiresIn: "10h",
-    });
+    const accessToken = jwt.sign(
+      { userId: user.userId },
+      process.env.JWT_ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: '10h',
+      },
+    );
 
     return {
       accessToken,
