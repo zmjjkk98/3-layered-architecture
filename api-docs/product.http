@@ -1,5 +1,5 @@
 @host = http://localhost:3000/api/products
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcwMjEyMzg5NiwiZXhwIjoxNzAyMTU5ODk2fQ.Q1RrbQkaRsDzoJ0wLXBW50oJ3ulbNQ4nL0gNaRJ47CE
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTcwMjE3NDk0MywiZXhwIjoxNzAyMjEwOTQzfQ.ZWxeppaTae-1Z0p2ZoVqP6gvZVstSZu1QV7hRRzvuxM
 
 ### 상품 생성
 POST {{host}}
@@ -7,8 +7,8 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-   "title": "테스트용 타이틀33",
-   "description" : "테스트 내용33"
+   "title": "테스트용 타이틀2",
+   "description" : "테스트 내용2"
 }
 
 ### 상품 조회
@@ -17,7 +17,7 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 ### 단일 상품 조회
-GET {{host}}/1
+GET {{host}}/2
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
