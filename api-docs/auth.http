@@ -1,5 +1,5 @@
 @host = http://localhost:3000/api/users
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTcwMjEzMTIwMiwiZXhwIjoxNzAyMTY3MjAyfQ.QJzC64RQoDc8MZoip_O2n7n-6BZS5EiEyEyrQrxLAM4
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTcwMjE4NjE5MiwiZXhwIjoxNzAyMjIyMTkyfQ.MLmJ7FzSq6q8BuuTBKZ01J0th1EqrNVA5nFCotAtBmM
 
 ###회원 가입
 POST {{host}}/signup

@@ -1,5 +1,5 @@
 @host = http://localhost:3000/api/products
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTcwMjE3NDk0MywiZXhwIjoxNzAyMjEwOTQzfQ.ZWxeppaTae-1Z0p2ZoVqP6gvZVstSZu1QV7hRRzvuxM
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTcwMjE4NjE5MiwiZXhwIjoxNzAyMjIyMTkyfQ.MLmJ7FzSq6q8BuuTBKZ01J0th1EqrNVA5nFCotAtBmM
 
 ### 상품 생성
 POST {{host}}
@@ -7,19 +7,17 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-   "title": "테스트용 타이틀2",
-   "description" : "테스트 내용2"
+   "title": "테스트용 타이틀15",
+   "description" : "테스트 내용15"
 }
 
 ### 상품 조회
 GET {{host}}
 Content-Type: application/json
-Authorization: Bearer {{accessToken}}
 
 ### 단일 상품 조회
-GET {{host}}/2
+GET {{host}}/1
 Content-Type: application/json
-Authorization: Bearer {{accessToken}}
 
 
 ### 상품 수정
@@ -28,13 +26,13 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "title": "수정된 제목입니다", 
-  "description": "수정된 내용입니다", 
+  "title": "수정된 제목입니다1", 
+  "description": "수정된 내용입니다1", 
   "status": "SOLD_OUT"
 }
 
 ### 상품 삭제
 
-DELETE {{host}}/3
+DELETE {{host}}/6
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}

@@ -47,6 +47,9 @@ export const auth = async (req, res, next) => {
   } catch (error) {
     console.log(error);
 
+    let statusCode = 500;
+    let errorMessage = '';
+
     switch (error.message) {
       case 'jwt expired':
         statusCode = 401;

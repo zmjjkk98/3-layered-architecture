@@ -73,87 +73,88 @@ export class ProductsService {
     };
   };
 
-  updateProduct = async (productId, title, description, status) => {
-    //유효성 검증용
-    const product = await this.productsRepository.getProductById(productId);
+  updateProduct = async (productId, title, description, status, userId) => {
+    try {
+      const product = await this.productsRepository.getProductById(productId);
 
-    if (!product) {
-      return res.status(404).json({
-        message: '수정하려는 상품이 존재하지 않습니다.',
-      });
+      if (!product) {
+        return res.status(404).json({
+          message: '수정하려는 상품이 존재하지 않습니다.',
+        });
+      }
+
+      if (!title && !description && !status) {
+        return res.status(400).json({
+          message: '수정 정보는 최소 한 가지 이상이어야 합니다.',
+        });
+      }
+
+      const isValidStatus = status
+        ? status === 'FOR_SALE' || status === 'SOLD_OUT'
+        : true;
+
+      if (!isValidStatus) {
+        return res.status(400).json({
+          message: '지원하지 않는 상태입니다. (status: FOR_SALE | SOLD_OUT)',
+        });
+      }
+
+      const isProductOwner = product.UserId === +userId;
+
+      if (!isProductOwner) {
+        throw new Error('수정 권한이 없습니다.');
+      }
+
+      const updatedProduct = await this.productsRepository.updateProduct(
+        productId,
+        title,
+        description,
+        status,
+      );
+
+      return {
+        productId: updatedProduct.productId,
+        title: updatedProduct.title,
+        description: updatedProduct.description,
+        status: updatedProduct.status,
+        UserId: updatedProduct.UserId,
+        createdAt: updatedProduct.createdAt,
+        updatedAt: updatedProduct.updatedAt,
+      };
+    } catch (error) {
+      console.log(error);
     }
-
-    if (!title && !description && !status) {
-      return res.status(400).json({
-        message: '수정 정보는 최소 한 가지 이상이어야 합니다.',
-      });
-    }
-
-    const isValidStatus = status
-      ? status === 'FOR_SALE' || status === 'SOLD_OUT'
-      : true;
-
-    if (!isValidStatus) {
-      return res.status(400).json({
-        message: '지원하지 않는 상태입니다. (status: FOR_SALE | SOLD_OUT)',
-      });
-    }
-
-    const { userId } = req.users;
-    const isProductOwner = product.UserId === userId;
-
-    if (!isProductOwner) {
-      return res.status(403).json({
-        message: '상품 수정 권한이 없습니다.',
-      });
-    }
-
-    const updatedProduct = await this.productsRepository.updateProduct(
-      productId,
-      title,
-      description,
-      status,
-    );
-
-    return {
-      productId: updatedProduct.productId,
-      title: updatedProduct.title,
-      description: updatedProduct.description,
-      status: updatedProduct.status,
-      UserId: updatedProduct.UserId,
-      createdAt: updatedProduct.createdAt,
-      updatedAt: updatedProduct.updatedAt,
-    };
   };
 
-  deleteProduct = async (productId) => {
-    const product = await this.productsRepository.getProductById(productId);
+  deleteProduct = async (productId, userId) => {
+    try {
+      const product = await this.productsRepository.getProductById(productId);
 
-    if (!product) {
-      return res.status(404).json({
-        message: '삭제하시려는 상품이 존재하지 않습니다.',
-      });
+      if (!product) {
+        return res.status(404).json({
+          message: '삭제하시려는 상품이 존재하지 않습니다.',
+        });
+      }
+
+      const isProductOwner = product.UserId === +userId;
+
+      if (!isProductOwner) {
+        throw new Error('삭제 권한이 없습니다.');
+      }
+
+      await this.productsRepository.deleteProduct(productId);
+
+      return {
+        productId: product.productId,
+        title: product.title,
+        description: product.description,
+        status: product.status,
+        UserId: product.UserId,
+        createdAt: product.createdAt,
+        updatedAt: product.updatedAt,
+      };
+    } catch (error) {
+      console.log(error);
     }
-
-    const { userId } = req.users;
-    const isProductOwner = product.UserId === userId;
-
-    if (!isProductOwner) {
-      return res.status(403).json({
-        message: '상품 삭제 권한이 없습니다.',
-      });
-    }
-
-    await this.productsRepository.deleteProduct(productId);
-
-    return {
-      productId: product.productId,
-      title: product.title,
-      description: product.description,
-      status: product.status,
-      UserId: product.UserId,
-      createdAt: product.createdAt,
-      updatedAt: product.updatedAt,
-    };
   };
 }

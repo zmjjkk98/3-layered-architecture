@@ -1,4 +1,4 @@
-import { ProductsService } from "../service/products.service.js";
+import { ProductsService } from '../service/products.service.js';
 
 export class ProductsController {
   productsService = new ProductsService();
@@ -12,7 +12,7 @@ export class ProductsController {
       const createdPost = await this.productsService.createProduct(
         title,
         description,
-        userId
+        userId,
       );
 
       return res.status(201).json({ data: createdPost });
@@ -57,24 +57,30 @@ export class ProductsController {
     try {
       const { productId } = req.params;
       const { title, description, status } = req.body;
+      const { userId } = req.users;
       const updatedProduct = await this.productsService.updateProduct(
         productId,
         title,
         description,
-        status
+        status,
+        userId,
       );
 
       return res.status(200).json({ data: updatedProduct });
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //삭제
   deleteProduct = async (req, res) => {
     try {
       const { productId } = req.params;
+      const { userId } = req.users;
 
       const deletedProduct = await this.productsService.deleteProduct(
-        productId
+        productId,
+        userId,
       );
 
       return res.status(200).json({ data: deletedProduct });
